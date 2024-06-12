@@ -2,9 +2,9 @@ import { FormEvent, useRef, useState } from "react";
 import * as api from "./api";
 import { Recipe } from "./types";
 import RecipeCard from "./components/RecipeCard";
+import RecipeModal from "./components/RecipeModal";
 
 import "./App.css";
-import RecipeModal from "./components/RecipeModal";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -61,7 +61,12 @@ const App = () => {
         View More
       </button>
 
-      {selectedRecipe ? <RecipeModal /> : null}
+      {selectedRecipe ? (
+        <RecipeModal
+          recipeId={selectedRecipe.id.toString()}
+          onClose={() => setSelectedRecipe(undefined)}
+        />
+      ) : null}
     </div>
   );
 };
