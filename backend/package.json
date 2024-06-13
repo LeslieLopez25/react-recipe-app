@@ -6,8 +6,6 @@
   "scripts": {
     "start": "npx nodemon"
   },
-  "proxy": "http://localhost:5173"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LeslieLopez25/react-recipe-app.git"
