@@ -12,7 +12,7 @@ export const searchRecipes = async (searchTerm: string, page: number) => {
 };
 
 export const getRecipeSummary = async (recipeId: string) => {
-  const url = new URL(`https://localhost:5000/api/recipes/${recipeId}/summary`);
+  const url = new URL(`http://localhost:5000/api/recipes/${recipeId}/summary`);
   const response = await fetch(url);
 
   if (!response.ok) {
