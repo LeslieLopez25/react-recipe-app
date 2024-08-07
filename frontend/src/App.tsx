@@ -55,6 +55,27 @@ const App = () => {
     }
   };
 
+  const addFavoriteRecipe = async (recipe: Recipe) => {
+    try {
+      await api.addFavoriteRecipe(recipe);
+      setFavoriteRecipes([...favoriteRecipes, recipe]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removeFavoriteRecipe = async (recipe: Recipe) => {
+    try {
+      await api.removeFavoriteRecipe(recipe);
+      const updatedRecipes = favoriteRecipes.filter(
+        (favRecipe) => recipe.id !== favRecipe.id
+      );
+      setFavoriteRecipes(updatedRecipes);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <div className="tabs">
@@ -82,18 +103,30 @@ const App = () => {
             <RecipeCard
               recipe={recipe}
               onClick={() => setSelectedRecipe(recipe)}
+              onFavoriteButtonClick={removeFavoriteRecipe}
+              isFavorite={true}
             />
           ))}
         </div>
       )}
 
-      {recipes.map((recipe, id) => (
-        <RecipeCard
-          recipe={recipe}
-          key={id}
-          onClick={() => setSelectedRecipe(recipe)}
-        />
-      ))}
+      {recipes.map((recipe, id) => {
+        const isFavorite = favoriteRecipes.some(
+          (favRecipe) => recipe.id === favRecipe.id
+        );
+
+        return (
+          <RecipeCard
+            recipe={recipe}
+            key={id}
+            onClick={() => setSelectedRecipe(recipe)}
+            onFavoriteButtonClick={
+              isFavorite ? removeFavoriteRecipe : addFavoriteRecipe
+            }
+            isFavorite={isFavorite}
+          />
+        );
+      })}
       <button className="view-more-button" onClick={handleViewMoreClick}>
         View More
       </button>
