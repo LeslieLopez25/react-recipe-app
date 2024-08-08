@@ -118,9 +118,10 @@ const App = () => {
 
       {selectedTab === "favorites" && (
         <div className="recipe-grid">
-          {favoriteRecipes.map((recipe) => (
+          {favoriteRecipes.map((recipe, id) => (
             <RecipeCard
               recipe={recipe}
+              key={id}
               onClick={() => setSelectedRecipe(recipe)}
               onFavoriteButtonClick={removeFavoriteRecipe}
               isFavorite={true}

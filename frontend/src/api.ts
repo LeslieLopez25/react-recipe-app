@@ -36,7 +36,7 @@ export const getFavoriteRecipes = async () => {
 };
 
 export const addFavoriteRecipe = async (recipe: Recipe) => {
-  const url = new URL("http://localhost:5000/api/recipes/favourite");
+  const url = new URL("http://localhost:5000/api/recipes/favorite");
   const body = {
     recipeId: recipe.id,
   };
@@ -55,7 +55,7 @@ export const addFavoriteRecipe = async (recipe: Recipe) => {
 };
 
 export const removeFavoriteRecipe = async (recipe: Recipe) => {
-  const url = new URL("http://localhost:5000/api/recipes/favourite");
+  const url = new URL("http://localhost:5000/api/recipes/favorite");
   const body = {
     recipeId: recipe.id,
   };
