@@ -5,6 +5,7 @@ import RecipeCard from "./components/RecipeCard";
 import RecipeModal from "./components/RecipeModal";
 
 import "./App.css";
+import { AiOutlineSearch } from "react-icons/ai";
 
 type Tabs = "search" | "favorites";
 
@@ -77,10 +78,26 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="app-container">
+      <div className="header">
+        <img src="/hero-img.jpg" alt="hero image" />
+        <div className="title">My Recipe App</div>
+      </div>
       <div className="tabs">
-        <h1 onClick={() => setSelectedTab("search")}> Recipe Search </h1>
-        <h1 onClick={() => setSelectedTab("favorites")}> Favorites </h1>
+        <h1
+          className={selectedTab === "search" ? "tab-active" : ""}
+          onClick={() => setSelectedTab("search")}
+        >
+          {" "}
+          Recipe Search{" "}
+        </h1>
+        <h1
+          className={selectedTab === "favorites" ? "tab-active" : ""}
+          onClick={() => setSelectedTab("favorites")}
+        >
+          {" "}
+          Favorites{" "}
+        </h1>
       </div>
       {selectedTab === "search" && (
         <>
@@ -92,13 +109,15 @@ const App = () => {
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
             />
-            <button type="submit">Submit</button>
+            <button type="submit">
+              <AiOutlineSearch size={40} />
+            </button>
           </form>
         </>
       )}
 
       {selectedTab === "favorites" && (
-        <div>
+        <div className="recipe-grid">
           {favoriteRecipes.map((recipe) => (
             <RecipeCard
               recipe={recipe}
@@ -110,23 +129,26 @@ const App = () => {
         </div>
       )}
 
-      {recipes.map((recipe, id) => {
-        const isFavorite = favoriteRecipes.some(
-          (favRecipe) => recipe.id === favRecipe.id
-        );
+      <div className="recipe-grid">
+        {recipes.map((recipe, id) => {
+          const isFavorite = favoriteRecipes.some(
+            (favRecipe) => recipe.id === favRecipe.id
+          );
 
-        return (
-          <RecipeCard
-            recipe={recipe}
-            key={id}
-            onClick={() => setSelectedRecipe(recipe)}
-            onFavoriteButtonClick={
-              isFavorite ? removeFavoriteRecipe : addFavoriteRecipe
-            }
-            isFavorite={isFavorite}
-          />
-        );
-      })}
+          return (
+            <RecipeCard
+              recipe={recipe}
+              key={id}
+              onClick={() => setSelectedRecipe(recipe)}
+              onFavoriteButtonClick={
+                isFavorite ? removeFavoriteRecipe : addFavoriteRecipe
+              }
+              isFavorite={isFavorite}
+            />
+          );
+        })}
+      </div>
+
       <button className="view-more-button" onClick={handleViewMoreClick}>
         View More
       </button>
