@@ -7,7 +7,6 @@ body {
   padding-bottom: 5em;
   height: 100vh;
   background-color: rgb(146, 0, 10);
-  color: white;
 }
 
 @media (min-width: 768px) {
@@ -148,6 +147,7 @@ button {
   display: flex;
   gap: 2em;
   cursor: pointer;
+  color: white;
 }
 
 .recipe-card-title {
