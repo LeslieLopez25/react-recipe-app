@@ -3,9 +3,9 @@ import * as api from "./api";
 import { Recipe } from "./types";
 import RecipeCard from "./components/RecipeCard";
 import RecipeModal from "./components/RecipeModal";
+import { AiOutlineSearch } from "react-icons/ai";
 
 import "./App.css";
-import { AiOutlineSearch } from "react-icons/ai";
 
 type Tabs = "search" | "favorites";
 
@@ -15,7 +15,6 @@ const App = () => {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | undefined>(
     undefined
   );
-
   const [selectedTab, setSelectedTab] = useState<Tabs>("search");
   const [favoriteRecipes, setFavoriteRecipes] = useState<Recipe[]>([]);
   const pageNumber = useRef(1);
@@ -46,7 +45,6 @@ const App = () => {
 
   const handleViewMoreClick = async () => {
     const nextPage = pageNumber.current + 1;
-
     try {
       const nextRecipes = await api.searchRecipes(searchTerm, nextPage);
       setRecipes([...recipes, ...nextRecipes.results]);
@@ -80,7 +78,7 @@ const App = () => {
   return (
     <div className="app-container">
       <div className="header">
-        <img src="/hero-img.jpg" alt="hero image" />
+        <img src="/hero-img.jpg"></img>
         <div className="title">My Recipe App</div>
       </div>
       <div className="tabs">
@@ -88,31 +86,54 @@ const App = () => {
           className={selectedTab === "search" ? "tab-active" : ""}
           onClick={() => setSelectedTab("search")}
         >
-          {" "}
-          Recipe Search{" "}
+          Recipe Search
         </h1>
         <h1
           className={selectedTab === "favorites" ? "tab-active" : ""}
           onClick={() => setSelectedTab("favorites")}
         >
-          {" "}
-          Favorites{" "}
+          Favorites
         </h1>
       </div>
+
       {selectedTab === "search" && (
         <>
           <form onSubmit={(event) => handleSearchSubmit(event)}>
             <input
               type="text"
               required
-              placeholder="Enter a search term..."
+              placeholder="Enter a search term ..."
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
-            />
+            ></input>
             <button type="submit">
               <AiOutlineSearch size={40} />
             </button>
           </form>
+
+          <div className="recipe-grid">
+            {recipes.map((recipe, id) => {
+              const isFavorite = favoriteRecipes.some(
+                (favRecipe) => recipe.id === favRecipe.id
+              );
+
+              return (
+                <RecipeCard
+                  recipe={recipe}
+                  key={id}
+                  onClick={() => setSelectedRecipe(recipe)}
+                  onFavoriteButtonClick={
+                    isFavorite ? removeFavoriteRecipe : addFavoriteRecipe
+                  }
+                  isFavorite={isFavorite}
+                />
+              );
+            })}
+          </div>
+
+          <button className="view-more-button" onClick={handleViewMoreClick}>
+            View More
+          </button>
         </>
       )}
 
@@ -129,30 +150,6 @@ const App = () => {
           ))}
         </div>
       )}
-
-      <div className="recipe-grid">
-        {recipes.map((recipe, id) => {
-          const isFavorite = favoriteRecipes.some(
-            (favRecipe) => recipe.id === favRecipe.id
-          );
-
-          return (
-            <RecipeCard
-              recipe={recipe}
-              key={id}
-              onClick={() => setSelectedRecipe(recipe)}
-              onFavoriteButtonClick={
-                isFavorite ? removeFavoriteRecipe : addFavoriteRecipe
-              }
-              isFavorite={isFavorite}
-            />
-          );
-        })}
-      </div>
-
-      <button className="view-more-button" onClick={handleViewMoreClick}>
-        View More
-      </button>
 
       {selectedRecipe ? (
         <RecipeModal
