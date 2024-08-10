@@ -6,7 +6,8 @@
   "scripts": {
     "start": "vite",
     "backend": "npm start --prefix ../backend",
-    "dev": "concurrently \"npm run backend\" \"vite\""
+    "dev": "concurrently \"npm run backend\" \"vite\"",
+    "build": "vite build"
   },
   "dependencies": {
     "react": "^18.2.0",
