@@ -43,7 +43,9 @@ app.post("/api/recipes/favorite", async (req, res) => {
 app.get("/api/recipes/favorite", async (req, res) => {
   try {
     const recipes = await prismaClient.favoriteRecipes.findMany();
-    const recipeIds = recipes.map((recipe) => recipe.recipeId.toString());
+    const recipeIds = recipes.map((recipe: { recipeId: number }) =>
+      recipe.recipeId.toString()
+    );
 
     const favorites = await RecipeAPI.getFavoriteRecipesByIDs(recipeIds);
 
@@ -70,6 +72,8 @@ app.delete("/api/recipes/favorite", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log("server running on localhost:5000");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`server running on port ${PORT}`);
 });
