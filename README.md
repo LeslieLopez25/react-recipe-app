@@ -2,6 +2,9 @@
 
 <p>This Recipe App is a fullstack project. It allows users to view, add, and manage their favorite recipes. It was built using React for the frontend, Node.js with Prisma for the backend using a Postgres database.</p>
 
+<p>This project was built following the tutorial of 
+Chris Blakely. Somethings have been changed from the original tutorial such as my project using Tembo to host my database from the one he uses and getting my fullstack project to be deployed as the tutorial doesn't cover how to deploy the project.</p>
+
 <h2>Getting Started</h2>
 
 <h3>Prerequisites:</h3>
@@ -10,7 +13,7 @@
 - An account to host your database. I used [Tembo](https://tembo.io/).
 - A [Spoonacular API key](https://spoonacular.com/food-api) for the recipe API.
 
-<h3>Setting up the Backend:</h3>
+**Setting up the Backend**:
 
 - Create a folder for your backend and navigate to the backend directory:
 
@@ -34,12 +37,47 @@ cd backend
   - Copy the connection string provided by Tembo.
 
 - **Prisma Setup**:
+
   - Replace the `DATABASE_URL` in the `.env` file with your Tembo connection string.
   - Initialize Prisma and generate the Prisma client:
     ```bash
     npx prisma init
     npx prisma generate
     ```
+
+- Start the backend server:
+  ```bash
+  npm start
+  ```
+
+**Setting up the Frontend**:
+
+- Navigate to the frontend directory:
+
+  ```bash
+  cd frontend
+  ```
+
+- Install the necessary packages:
+
+  ```bash
+  npm install
+  ```
+
+- Start the frontend development server:
+- ```bash
+  npm run dev
+  ```
+
+### Link
+
+- Live site: [Recipe App](https://flavor-beat.netlify.app/)
+
+### Screenshots
+
+<img src="./frontend/assets/homepage.png" width="400">
+<img src="./frontend/assets/recipes.png" width="400">
+<img src="./frontend/assets/favorites.png" width="400">
 
 ---
 
